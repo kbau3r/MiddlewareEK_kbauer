@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Warehouse Data</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body>
+<h2>Warehouse Data (JSON)</h2>
+<div id="jsonResponse"></div>
+
+<h2>Warehouse Data (XML)</h2>
+<pre id="xmlResponse"></pre>
+
+<h2>HTML</h2>
+<div id="htmlContent"></div>
+
+<script>
+    $(document).ready(function() {
+        // JSON request
+        $.ajax({
+            url: "http://localhost:8080/JSON/CityName/Name",
+            dataType: "json"
+        }).then(function(data) {
+            $('#jsonResponse').html(JSON.stringify(data, null, 2));
+        });
+
+        // XML request
+        $.ajax({
+            url: "http://localhost:8080/XML/CityName/Name",
+            dataType: "xml"
+        }).then(function(data) {
+            var xmlText = new XMLSerializer().serializeToString(data);
+            $('#xmlResponse').text(xmlText);
+        });
+        $(document).ready(function() {
+            $.ajax({
+                url: "http://localhost:8080/HTML/CityName/Name",
+                dataType: "html"
+            }).then(function(data) {
+                $('#htmlContent').html(data);
+            });
+        });
+    });
+</script>
+</body>
+</html>
